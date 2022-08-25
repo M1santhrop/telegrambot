@@ -14,7 +14,7 @@ class StopCommandTest extends AbstractCommandTest {
 
     @Override
     String getCommandName() {
-        return STOP.getCommandName();
+        return STOP.getName();
     }
 
     @Override

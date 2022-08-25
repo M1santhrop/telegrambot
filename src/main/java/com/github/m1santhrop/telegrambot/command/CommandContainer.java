@@ -10,10 +10,10 @@ public class CommandContainer {
 
     public CommandContainer(SendBotMessageService sendBotMessageService) {
         this.commandMap = ImmutableMap.<String, Command>builder()
-            .put(CommandName.START.getCommandName(), new StartCommand(sendBotMessageService))
-            .put(CommandName.STOP.getCommandName(), new StopCommand(sendBotMessageService))
-            .put(CommandName.HELP.getCommandName(), new HelpCommand(sendBotMessageService))
-            .put(CommandName.NO.getCommandName(), new NoCommand(sendBotMessageService))
+            .put(CommandName.START.getName(), new StartCommand(sendBotMessageService))
+            .put(CommandName.STOP.getName(), new StopCommand(sendBotMessageService))
+            .put(CommandName.HELP.getName(), new HelpCommand(sendBotMessageService))
+            .put(CommandName.NO.getName(), new NoCommand(sendBotMessageService))
             .build();
 
         this.unknownCommand = new UnknownCommand(sendBotMessageService);

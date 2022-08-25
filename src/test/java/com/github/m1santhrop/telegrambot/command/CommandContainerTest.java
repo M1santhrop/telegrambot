@@ -3,7 +3,6 @@ package com.github.m1santhrop.telegrambot.command;
 import static org.junit.jupiter.api.Assertions.*;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageService;
 import java.util.Arrays;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,7 @@ class CommandContainerTest {
     @Test
     public void shouldGetAllTheExistingCommands() {
         Arrays.stream(CommandName.values()).forEach(commandName -> {
-            Command command = commandContainer.retrieveCommand(commandName.getCommandName());
+            Command command = commandContainer.retrieveCommand(commandName.getName());
             assertNotEquals(UnknownCommand.class, command.getClass());
         });
     }

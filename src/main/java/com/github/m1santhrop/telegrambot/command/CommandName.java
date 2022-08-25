@@ -7,13 +7,13 @@ public enum CommandName {
     HELP("/help"),
     NO("nocommand");
     
-    private String commandName;
+    private String name;
 
-    CommandName(String commandName) {
-        this.commandName = commandName;
+    CommandName(String name) {
+        this.name = name;
     }
 
-    public String getCommandName() {
-        return commandName;
+    public String getName() {
+        return name;
     }
 }

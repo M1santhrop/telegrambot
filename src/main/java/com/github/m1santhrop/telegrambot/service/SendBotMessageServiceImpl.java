@@ -3,18 +3,14 @@ package com.github.m1santhrop.telegrambot.service;
 import com.github.m1santhrop.telegrambot.bot.JavarushTelegramBot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-//@Service
 public class SendBotMessageServiceImpl implements  SendBotMessageService{
     private static final Logger LOGGER = LoggerFactory.getLogger(SendBotMessageServiceImpl.class);
         
     private JavarushTelegramBot javarushTelegramBot;
-
-//    @Autowired
+    
     public SendBotMessageServiceImpl(
         JavarushTelegramBot javarushTelegramBot) {
         this.javarushTelegramBot = javarushTelegramBot;

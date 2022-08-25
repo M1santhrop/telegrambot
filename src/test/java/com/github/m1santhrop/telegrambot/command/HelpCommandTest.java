@@ -14,7 +14,7 @@ class HelpCommandTest extends AbstractCommandTest {
 
     @Override
     String getCommandName() {
-        return HELP.getCommandName();
+        return HELP.getName();
     }
 
     @Override

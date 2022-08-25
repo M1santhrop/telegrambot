@@ -14,7 +14,7 @@ class StartCommandTest extends AbstractCommandTest {
 
     @Override
     String getCommandName() {
-        return START.getCommandName();
+        return START.getName();
     }
 
     @Override

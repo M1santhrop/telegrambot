@@ -15,7 +15,7 @@ public class HelpCommand implements Command {
             + "%s - начать работу со мной\n"
             + "%s - приостановить работу со мной\n\n"
             + "%s - получить помощь в работе со мной\n",
-        START.getCommandName(), STOP.getCommandName(), HELP.getCommandName());
+        START.getName(), STOP.getName(), HELP.getName());
 
     public HelpCommand(
         SendBotMessageService sendBotMessageService) {
