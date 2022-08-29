@@ -2,8 +2,10 @@ package com.github.m1santhrop.telegrambot.bot;
 
 import com.github.m1santhrop.telegrambot.command.CommandContainer;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageServiceImpl;
+import com.github.m1santhrop.telegrambot.service.TelegramUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -24,8 +26,9 @@ public class JavarushTelegramBot extends TelegramLongPollingBot {
 
     private final CommandContainer commandContainer;
 
-    public JavarushTelegramBot() {
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this));
+    @Autowired
+    public JavarushTelegramBot(TelegramUserService telegramUserService) {
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
     }
 
     @Override
@@ -42,7 +45,7 @@ public class JavarushTelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         String userName = receiveUserName(update.getMessage().getFrom());
         LOGGER.info("Received message: \"{}\" from {}", update.getMessage().getText(), userName);
-        
+
         if (update.hasMessage() && update.getMessage().hasText()) {
             String text = update.getMessage().getText().trim();
             if (text.startsWith(COMMAND_PREFIX)) {

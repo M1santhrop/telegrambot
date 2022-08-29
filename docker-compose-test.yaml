@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  jrtb-db:
+    image: mysql:8.0.30
+    restart: always
+    container_name: test-jrtb-db
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'
+    environment:
+      MYSQL_DATABASE: 'test_jrtb_db'
+      MYSQL_USER: 'test_jrtb_db_user'
+      MYSQL_PASSWORD: 'test_jrtb_db_password'
+      MYSQL_ROOT_PASSWORD: 'root'
