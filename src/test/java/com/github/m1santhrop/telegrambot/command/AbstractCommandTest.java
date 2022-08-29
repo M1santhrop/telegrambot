@@ -1,8 +1,11 @@
 package com.github.m1santhrop.telegrambot.command;
 
 import com.github.m1santhrop.telegrambot.bot.JavarushTelegramBot;
+import com.github.m1santhrop.telegrambot.repository.TelegramUserRepository;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageService;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageServiceImpl;
+import com.github.m1santhrop.telegrambot.service.TelegramUserService;
+import com.github.m1santhrop.telegrambot.service.TelegramUserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -14,6 +17,7 @@ abstract class AbstractCommandTest {
     
     protected JavarushTelegramBot telegramBot = Mockito.mock(JavarushTelegramBot.class);
     protected SendBotMessageService sendBotMessageService = new SendBotMessageServiceImpl(telegramBot);
+    protected TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
     
     @Test
     public void shouldProperlyExecuteCommand() throws TelegramApiException {
