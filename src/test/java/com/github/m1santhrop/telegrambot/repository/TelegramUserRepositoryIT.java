@@ -22,7 +22,7 @@ class TelegramUserRepositoryIT {
     
     @Sql(scripts = {"/sql/clearDbs.sql", "/sql/telegram_users.sql"})
     @Test
-    public void shouldProperlyFindAllActiveUsers() {
+    void shouldProperlyFindAllActiveUsers() {
         //when
         List<TelegramUser> users = telegramUserRepository.findAllByActiveTrue();
 
@@ -32,7 +32,7 @@ class TelegramUserRepositoryIT {
     
     @Sql(scripts = {"/sql/clearDbs.sql"})
     @Test
-    public void shouldProperlySaveTelegramUser() {
+    void shouldProperlySaveTelegramUser() {
         //given
         TelegramUser telegramUser = new TelegramUser();
         telegramUser.setChatId("1234567890");

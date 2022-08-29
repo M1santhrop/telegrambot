@@ -24,7 +24,7 @@ class CommandContainerTest {
     }
     
     @Test
-    public void shouldGetAllTheExistingCommands() {
+    void shouldGetAllTheExistingCommands() {
         Arrays.stream(CommandName.values()).forEach(commandName -> {
             Command command = commandContainer.retrieveCommand(commandName.getName());
             assertNotEquals(UnknownCommand.class, command.getClass());
@@ -32,7 +32,7 @@ class CommandContainerTest {
     }
     
     @Test
-    public void shouldReturnUnknownCommand() {
+    void shouldReturnUnknownCommand() {
         String unknownCommand = "/unknown";
 
         Command command = commandContainer.retrieveCommand(unknownCommand);
