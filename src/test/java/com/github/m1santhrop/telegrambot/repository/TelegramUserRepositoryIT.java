@@ -1,6 +1,9 @@
 package com.github.m1santhrop.telegrambot.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.*;
+import com.github.m1santhrop.telegrambot.repository.entity.GroupSub;
 import com.github.m1santhrop.telegrambot.repository.entity.TelegramUser;
 import java.util.List;
 import java.util.Optional;
@@ -46,5 +49,22 @@ class TelegramUserRepositoryIT {
         //then
         Assertions.assertTrue(savedUser.isPresent());
         Assertions.assertEquals(telegramUser, savedUser.get());
+    }
+
+    @Sql(scripts = {"/sql/clearDbs.sql", "/sql/fiveGroupSubsForUser.sql"})
+    @Test
+    void shouldProperlyGetAllGroupSubsForUser() {
+        //when
+        Optional<TelegramUser> user = telegramUserRepository.findById("1");
+
+        //then
+        assertTrue(user.isPresent());
+        List<GroupSub> groupSubs = user.get().getGroupSubs();
+        for (int i = 0; i < groupSubs.size(); i++) {
+            GroupSub groupSub = groupSubs.get(i);
+            assertEquals(String.format("g%d", i + 1), groupSub.getTitle());
+            assertEquals(i + 1, groupSub.getId());
+            assertEquals(i + 1, groupSub.getLastArticleId());
+        }
     }
 }

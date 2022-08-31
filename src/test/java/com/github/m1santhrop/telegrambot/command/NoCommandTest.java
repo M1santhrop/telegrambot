@@ -15,7 +15,7 @@ class NoCommandTest extends AbstractCommandTest {
 
     @Override
     String getCommandName() {
-        return NO.getName();
+        return NOCOMMAND.getName();
     }
 
     @Override
