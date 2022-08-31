@@ -1,5 +1,6 @@
 package com.github.m1santhrop.telegrambot.command;
 
+import static com.github.m1santhrop.telegrambot.command.CommandUtils.getChatId;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageService;
 import com.github.m1santhrop.telegrambot.service.TelegramUserService;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ public class StopCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
+        String chatId = getChatId(update);
         sendBotMessageService.sendMessage(chatId, STOP_MESSAGE);
         telegramUserService.findByChatId(chatId).ifPresent(telegramUser -> {
             telegramUser.setActive(false);

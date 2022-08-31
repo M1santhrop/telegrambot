@@ -3,6 +3,7 @@ package com.github.m1santhrop.telegrambot.command;
 import static com.github.m1santhrop.telegrambot.command.CommandName.*;
 import static com.github.m1santhrop.telegrambot.command.CommandUtils.getChatId;
 import static com.github.m1santhrop.telegrambot.command.CommandUtils.getMessage;
+import static java.util.stream.Collectors.*;
 import com.github.m1santhrop.telegrambot.javarushclient.JavaRushGroupClient;
 import com.github.m1santhrop.telegrambot.javarushclient.dto.GroupDiscussionInfo;
 import com.github.m1santhrop.telegrambot.javarushclient.dto.GroupInfo;
@@ -12,7 +13,6 @@ import com.github.m1santhrop.telegrambot.service.GroupSubService;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageService;
 import java.util.Comparator;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -59,7 +59,7 @@ public class AddGroupSubCommand implements Command {
             .stream()
             .sorted(Comparator.comparing(GroupInfo::getId))
             .map(groupInfo -> String.format("%s - %s %n", groupInfo.getId(), groupInfo.getTitle()))
-            .collect(Collectors.joining());
+            .collect(joining());
 
         sendBotMessageService.sendMessage(chatId, String.format(GROUP_LIST_MESSAGE, groupIds));
     }

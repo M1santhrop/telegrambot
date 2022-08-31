@@ -1,5 +1,6 @@
 package com.github.m1santhrop.telegrambot.command;
 
+import static com.github.m1santhrop.telegrambot.command.CommandUtils.getChatId;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageService;
 import lombok.AllArgsConstructor;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -14,6 +15,6 @@ public class NoCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), NO_MESSAGE);
+        sendBotMessageService.sendMessage(getChatId(update), NO_MESSAGE);
     }
 }
