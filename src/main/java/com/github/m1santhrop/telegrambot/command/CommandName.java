@@ -13,7 +13,8 @@ public enum CommandName {
     NOCOMMAND("nocommand"),
     NOTEXT("notext"),
     STAT("/stat"),
-    ADD_GROUP_SUB("/addgroupsub");
+    ADD_GROUP_SUB("/addgroupsub"),
+    LIST_GROUP_SUB("/listgroupsub");
     
     private String name;
 }

@@ -1,5 +1,6 @@
 package com.github.m1santhrop.telegrambot.command;
 
+import static com.github.m1santhrop.telegrambot.command.CommandUtils.getChatId;
 import com.github.m1santhrop.telegrambot.repository.entity.TelegramUser;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageService;
 import com.github.m1santhrop.telegrambot.service.TelegramUserService;
@@ -18,7 +19,7 @@ public class StartCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
+        String chatId = getChatId(update);
 
         telegramUserService.findByChatId(chatId).ifPresentOrElse(
             telegramUser -> {
