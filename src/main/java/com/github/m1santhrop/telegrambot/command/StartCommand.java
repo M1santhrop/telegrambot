@@ -9,8 +9,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @AllArgsConstructor
 public class StartCommand implements Command {
 
-    private SendBotMessageService sendBotMessageService;
-    private TelegramUserService telegramUserService;
+    private final SendBotMessageService sendBotMessageService;
+    private final TelegramUserService telegramUserService;
 
     public static final String START_MESSAGE =
         "Привет. Я Telegram Bot. Я помогу тебе быть в курсе последних" + "\n"

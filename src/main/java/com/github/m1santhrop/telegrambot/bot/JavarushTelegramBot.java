@@ -1,6 +1,8 @@
 package com.github.m1santhrop.telegrambot.bot;
 
 import com.github.m1santhrop.telegrambot.command.CommandContainer;
+import com.github.m1santhrop.telegrambot.javarushclient.JavaRushGroupClient;
+import com.github.m1santhrop.telegrambot.service.GroupSubService;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageServiceImpl;
 import com.github.m1santhrop.telegrambot.service.TelegramUserService;
 import org.slf4j.Logger;
@@ -27,8 +29,10 @@ public class JavarushTelegramBot extends TelegramLongPollingBot {
     private final CommandContainer commandContainer;
 
     @Autowired
-    public JavarushTelegramBot(TelegramUserService telegramUserService) {
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
+    public JavarushTelegramBot(TelegramUserService telegramUserService,
+        GroupSubService groupSubService, JavaRushGroupClient javaRushGroupClient) {
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this),
+            telegramUserService, groupSubService, javaRushGroupClient);
     }
 
     @Override
@@ -54,6 +58,8 @@ public class JavarushTelegramBot extends TelegramLongPollingBot {
             } else {
                 commandContainer.retrieveCommand("nocommand").execute(update);
             }
+        } else {
+            commandContainer.retrieveCommand("notext").execute(update);
         }
     }
 

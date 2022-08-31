@@ -8,8 +8,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @AllArgsConstructor
 public class StopCommand implements Command {
 
-    private SendBotMessageService sendBotMessageService;
-    private TelegramUserService telegramUserService;
+    private final SendBotMessageService sendBotMessageService;
+    private final TelegramUserService telegramUserService;
 
     public static final String STOP_MESSAGE = "Деактивировал все ваши подписки \uD83D\uDE1F.";
 

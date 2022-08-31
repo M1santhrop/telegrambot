@@ -2,7 +2,9 @@ package com.github.m1santhrop.telegrambot.command;
 
 import static com.github.m1santhrop.telegrambot.command.CommandName.*;
 import static com.github.m1santhrop.telegrambot.command.StatCommand.*;
+import org.junit.jupiter.api.DisplayName;
 
+@DisplayName("Unit-level testing for StatCommand")
 class StatCommandTest extends AbstractCommandTest{
 
     @Override
