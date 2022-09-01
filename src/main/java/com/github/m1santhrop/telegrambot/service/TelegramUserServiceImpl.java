@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TelegramUserServiceImpl implements TelegramUserService {
 
-    private TelegramUserRepository telegramUserRepository;
+    private final TelegramUserRepository telegramUserRepository;
 
     @Autowired
     public TelegramUserServiceImpl(

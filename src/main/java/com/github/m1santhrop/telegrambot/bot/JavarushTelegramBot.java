@@ -5,8 +5,7 @@ import com.github.m1santhrop.telegrambot.javarushclient.JavaRushGroupClient;
 import com.github.m1santhrop.telegrambot.service.GroupSubService;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageServiceImpl;
 import com.github.m1santhrop.telegrambot.service.TelegramUserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,10 +13,10 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+@Slf4j
 @Component
 public class JavarushTelegramBot extends TelegramLongPollingBot {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(JavarushTelegramBot.class);
+    
     private static final String COMMAND_PREFIX = "/";
 
     @Value("${bot.username}")
@@ -48,7 +47,7 @@ public class JavarushTelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         String userName = receiveUserName(update.getMessage().getFrom());
-        LOGGER.info("Received message: \"{}\" from {}", update.getMessage().getText(), userName);
+        log.info("Received message: \"{}\" from {}", update.getMessage().getText(), userName);
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             String text = update.getMessage().getText().trim();

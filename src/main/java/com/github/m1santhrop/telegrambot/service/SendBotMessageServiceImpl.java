@@ -1,16 +1,20 @@
 package com.github.m1santhrop.telegrambot.service;
 
 import com.github.m1santhrop.telegrambot.bot.JavarushTelegramBot;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class SendBotMessageServiceImpl implements  SendBotMessageService{
-    private static final Logger LOGGER = LoggerFactory.getLogger(SendBotMessageServiceImpl.class);
-        
-    private JavarushTelegramBot javarushTelegramBot;
-    
+@Slf4j
+@Service
+public class SendBotMessageServiceImpl implements SendBotMessageService {
+
+    private final JavarushTelegramBot javarushTelegramBot;
+
+    @Autowired
     public SendBotMessageServiceImpl(
         JavarushTelegramBot javarushTelegramBot) {
         this.javarushTelegramBot = javarushTelegramBot;
@@ -24,10 +28,18 @@ public class SendBotMessageServiceImpl implements  SendBotMessageService{
         sendMessage.enableHtml(true);
 
         try {
-            LOGGER.info("Message: \"{}\" sent to chat: {}", message, chatId);
+            log.info("Message: \"{}\" sent to chat: {}", message, chatId);
             javarushTelegramBot.execute(sendMessage);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void sendMessage(String chatId, List<String> messages) {
+        if (messages.isEmpty()) {
+            return;
+        }
+        messages.forEach(message -> sendMessage(chatId, message));
     }
 }

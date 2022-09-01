@@ -109,4 +109,15 @@ class JavaRushGroupClientTest {
         assertEquals(COMPANY, group.getType());
     }
 
+    @Test
+    void shouldProperlyFindLastPostId() {
+        //given
+        Integer id = 1;
+        
+        //when
+        Integer lastPostId = javaRushGroupClient.findLastPostId(id);
+        
+        //then
+        assertTrue(lastPostId > 0);
+    }
 }
