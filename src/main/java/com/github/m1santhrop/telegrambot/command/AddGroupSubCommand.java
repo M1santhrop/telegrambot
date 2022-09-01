@@ -3,6 +3,7 @@ package com.github.m1santhrop.telegrambot.command;
 import static com.github.m1santhrop.telegrambot.command.CommandName.*;
 import static com.github.m1santhrop.telegrambot.command.CommandUtils.getChatId;
 import static com.github.m1santhrop.telegrambot.command.CommandUtils.getMessage;
+import static com.github.m1santhrop.telegrambot.command.CommandUtils.sendGroupNotFound;
 import static java.util.stream.Collectors.*;
 import com.github.m1santhrop.telegrambot.javarushclient.JavaRushGroupClient;
 import com.github.m1santhrop.telegrambot.javarushclient.dto.GroupDiscussionInfo;
@@ -30,7 +31,7 @@ public class AddGroupSubCommand implements Command {
             "я подготовил список всех групп - выбирай какую хочешь :) \n\n" +
             "ID группы - имя группы \n\n" +
             "%s";
-    public static final String GROUP_NOT_FOUND_MESSAGE = "Нет группы с ID = %s";
+    public static final String SUBSCRIBED_TO_GROUP_MESSAGE = "Подписал на группу: %s";
 
     @Override
     public void execute(Update update) {
@@ -45,12 +46,12 @@ public class AddGroupSubCommand implements Command {
             GroupDiscussionInfo groupDiscussionInfo = javaRushGroupClient.getGroupById(
                 Integer.valueOf(groupId));
             if (Objects.isNull(groupDiscussionInfo.getId())) {
-                sendGroupNotFound(chatId, groupId);
+                sendGroupNotFound(sendBotMessageService, chatId, groupId);
             }
             GroupSub savedGroupSub = groupSubService.save(chatId, groupDiscussionInfo);
-            sendBotMessageService.sendMessage(chatId, "Подписал на группу " + savedGroupSub.getTitle());
+            sendBotMessageService.sendMessage(chatId, String.format(SUBSCRIBED_TO_GROUP_MESSAGE, savedGroupSub.getTitle()));
         } else {
-            sendGroupNotFound(chatId, groupId);
+            sendGroupNotFound(sendBotMessageService, chatId, groupId);
         }
     }
 
@@ -62,9 +63,5 @@ public class AddGroupSubCommand implements Command {
             .collect(joining());
 
         sendBotMessageService.sendMessage(chatId, String.format(GROUP_LIST_MESSAGE, groupIds));
-    }
-
-    private void sendGroupNotFound(String chatId, String groupId) {
-        sendBotMessageService.sendMessage(chatId, String.format(GROUP_NOT_FOUND_MESSAGE, groupId));
     }
 }

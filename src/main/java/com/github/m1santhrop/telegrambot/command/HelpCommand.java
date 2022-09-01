@@ -1,6 +1,7 @@
 package com.github.m1santhrop.telegrambot.command;
 
 import static com.github.m1santhrop.telegrambot.command.CommandName.ADD_GROUP_SUB;
+import static com.github.m1santhrop.telegrambot.command.CommandName.DELETE_GROUP_SUB;
 import static com.github.m1santhrop.telegrambot.command.CommandName.HELP;
 import static com.github.m1santhrop.telegrambot.command.CommandName.LIST_GROUP_SUB;
 import static com.github.m1santhrop.telegrambot.command.CommandName.START;
@@ -22,10 +23,11 @@ public class HelpCommand implements Command {
             + "%s - приостановить работу со мной\n\n"
             + "<b>Работа с подписками на группу:</b>\n"
             + "%s - добавить подписку на группу\n"
+            + "%s - отписаться от группы\n"
             + "%s - показать ваши текущие подписки\n\n"
             + "%s - получить помощь в работе со мной\n"
             + "%s - получить мою статистику использования\n",
-        START.getName(), STOP.getName(), ADD_GROUP_SUB.getName(),
+        START.getName(), STOP.getName(), ADD_GROUP_SUB.getName(), DELETE_GROUP_SUB.getName(),
         LIST_GROUP_SUB.getName(), HELP.getName(), STAT.getName());
 
     @Override
