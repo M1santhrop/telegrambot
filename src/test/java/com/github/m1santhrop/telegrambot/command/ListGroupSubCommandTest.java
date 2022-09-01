@@ -14,6 +14,7 @@ import com.github.m1santhrop.telegrambot.service.TelegramUserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -23,8 +24,14 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @DisplayName("Unit-level testing for ListGroupSubCommand")
 class ListGroupSubCommandTest {
 
+    private Command listGroupSubCommand;
     private final TelegramUserService telegramUserService = mock(TelegramUserService.class);
     private final SendBotMessageService sendBotMessageService = mock(SendBotMessageService.class);
+
+    @BeforeEach
+    void init() {
+        listGroupSubCommand = new ListGroupSubCommand(telegramUserService, sendBotMessageService);
+    }
 
     @Test
     void shouldProperlyShowsListGroupSub() {
@@ -39,9 +46,6 @@ class ListGroupSubCommandTest {
         groupSubs.add(buildGroupSub(3, "gr3"));
         telegramUser.setGroupSubs(groupSubs);
 
-        ListGroupSubCommand listGroupSubCommand = new ListGroupSubCommand(telegramUserService,
-            sendBotMessageService);
-        
         Chat chat = new Chat();
         chat.setId(parseLong(telegramUser.getChatId()));
         Message message = new Message();
@@ -62,7 +66,8 @@ class ListGroupSubCommandTest {
         listGroupSubCommand.execute(update);
 
         //then
-        verify(sendBotMessageService).sendMessage(telegramUser.getChatId(), MESSAGE + collectedString);
+        verify(sendBotMessageService).sendMessage(telegramUser.getChatId(),
+            MESSAGE + collectedString);
     }
 
     private GroupSub buildGroupSub(Integer id, String title) {

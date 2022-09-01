@@ -8,10 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
 @Table(name = "tg_user")
+@EqualsAndHashCode(exclude = "groupSubs")
 public class TelegramUser {
 
     @Id
