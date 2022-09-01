@@ -5,6 +5,7 @@ import static com.github.m1santhrop.telegrambot.command.CommandUtils.getChatId;
 import static com.github.m1santhrop.telegrambot.command.CommandUtils.getMessage;
 import static com.github.m1santhrop.telegrambot.command.CommandUtils.sendGroupNotFound;
 import static java.util.stream.Collectors.*;
+import com.github.m1santhrop.telegrambot.exception.ExceptionSender;
 import com.github.m1santhrop.telegrambot.repository.entity.GroupSub;
 import com.github.m1santhrop.telegrambot.repository.entity.TelegramUser;
 import com.github.m1santhrop.telegrambot.service.GroupSubService;
@@ -13,7 +14,6 @@ import com.github.m1santhrop.telegrambot.service.TelegramUserService;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import javax.ws.rs.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -49,7 +49,7 @@ public class DeleteGroupSubCommand implements Command {
             if (groupSubOptional.isPresent()) {
                 GroupSub groupSub = groupSubOptional.get();
                 TelegramUser telegramUser = telegramUserService.findByChatId(chatId)
-                    .orElseThrow(NotFoundException::new);
+                    .orElseThrow(() -> ExceptionSender.throwNotFoundUserException(chatId));
                 groupSub.getUsers().remove(telegramUser);
                 groupSubService.save(groupSub);
                 sendBotMessageService.sendMessage(chatId, String.format(REMOVED_FROM_GROUP_MESSAGE, groupSub.getTitle()));
@@ -63,12 +63,11 @@ public class DeleteGroupSubCommand implements Command {
 
     private void sendGroupIdList(String chatId) {
         List<GroupSub> groupSubs = telegramUserService.findByChatId(chatId)
-            .orElseThrow(NotFoundException::new).getGroupSubs();
+            .orElseThrow(() -> ExceptionSender.throwNotFoundUserException(chatId)).getGroupSubs();
         if (groupSubs.isEmpty()) {
             sendBotMessageService.sendMessage(chatId, EMPTY_GROUP_SUBS_MESSAGE);
         } else {
-            String groupSubsString = groupSubs
-                .stream()
+            String groupSubsString = groupSubs.stream()
                 .sorted(Comparator.comparing(GroupSub::getId))
                 .map(groupSub -> String.format("%s - %s %n", groupSub.getId(), groupSub.getTitle()))
                 .collect(joining());

@@ -56,8 +56,7 @@ class ListGroupSubCommandTest {
         when(telegramUserService.findByChatId(telegramUser.getChatId())).thenReturn(
             Optional.of(telegramUser));
 
-        String collectedString = telegramUser.getGroupSubs()
-            .stream()
+        String collectedString = telegramUser.getGroupSubs().stream()
             .map(groupSub -> String.format("ID : %s, Группа : %s %n", groupSub.getId(),
                 groupSub.getTitle()))
             .collect(joining());

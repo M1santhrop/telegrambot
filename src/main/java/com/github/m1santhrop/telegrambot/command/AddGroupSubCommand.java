@@ -56,8 +56,7 @@ public class AddGroupSubCommand implements Command {
     }
 
     private void sendGroupIdList(String chatId) {
-        String groupIds = javaRushGroupClient.getGroupList(GroupRequestArgs.builder().build())
-            .stream()
+        String groupIds = javaRushGroupClient.getGroupList(GroupRequestArgs.builder().build()).stream()
             .sorted(Comparator.comparing(GroupInfo::getId))
             .map(groupInfo -> String.format("%s - %s %n", groupInfo.getId(), groupInfo.getTitle()))
             .collect(joining());
