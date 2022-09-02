@@ -8,6 +8,7 @@ import com.github.m1santhrop.telegrambot.repository.entity.TelegramUser;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -18,6 +19,7 @@ import org.springframework.test.context.jdbc.Sql;
 @ActiveProfiles("test")
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = NONE)
+@DisplayName("Integration-level testing for TelegramUserRepository")
 class TelegramUserRepositoryIT {
 
     @Autowired
@@ -27,7 +29,7 @@ class TelegramUserRepositoryIT {
     @Test
     void shouldProperlyFindAllActiveUsers() {
         //when
-        List<TelegramUser> users = telegramUserRepository.findAllByActiveTrue();
+        List<TelegramUser> users = telegramUserRepository.findByActive(true);
 
         //then
         Assertions.assertEquals(5, users.size());

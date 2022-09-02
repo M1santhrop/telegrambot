@@ -4,8 +4,12 @@ import com.github.m1santhrop.telegrambot.command.CommandContainer;
 import com.github.m1santhrop.telegrambot.javarushclient.JavaRushGroupClient;
 import com.github.m1santhrop.telegrambot.service.GroupSubService;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageServiceImpl;
+import com.github.m1santhrop.telegrambot.service.StatisticService;
 import com.github.m1santhrop.telegrambot.service.TelegramUserService;
+import java.util.Collections;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,7 +20,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 @Slf4j
 @Component
 public class JavarushTelegramBot extends TelegramLongPollingBot {
-    
+
     private static final String COMMAND_PREFIX = "/";
 
     @Value("${bot.username}")
@@ -29,9 +33,13 @@ public class JavarushTelegramBot extends TelegramLongPollingBot {
 
     @Autowired
     public JavarushTelegramBot(TelegramUserService telegramUserService,
-        GroupSubService groupSubService, JavaRushGroupClient javaRushGroupClient) {
+        GroupSubService groupSubService, JavaRushGroupClient javaRushGroupClient,
+        @Value("#{'${bot.admins}'.split(',')}") List<String> admins, StatisticService statisticService) {
+        if (admins.size() == 1 && admins.get(0).equalsIgnoreCase(StringUtils.EMPTY)) {
+            admins = Collections.emptyList();
+        }
         this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this),
-            telegramUserService, groupSubService, javaRushGroupClient);
+            telegramUserService, groupSubService, javaRushGroupClient, admins, statisticService);
     }
 
     @Override
@@ -53,12 +61,12 @@ public class JavarushTelegramBot extends TelegramLongPollingBot {
             String text = update.getMessage().getText().trim();
             if (text.startsWith(COMMAND_PREFIX)) {
                 String commandName = text.split("\\s")[0].toLowerCase();
-                commandContainer.retrieveCommand(commandName).execute(update);
+                commandContainer.retrieveCommand(commandName, userName).execute(update);
             } else {
-                commandContainer.retrieveCommand("noCommand").execute(update);
+                commandContainer.retrieveCommand("noCommand", userName).execute(update);
             }
         } else {
-            commandContainer.retrieveCommand("noText").execute(update);
+            commandContainer.retrieveCommand("noText", userName).execute(update);
         }
     }
 
