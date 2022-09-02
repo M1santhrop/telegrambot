@@ -50,10 +50,10 @@ class TelegramUserServiceTest {
         telegramUser1.setActive(true);
         expectedUsers.add(telegramUser1);
         
-        when(telegramUserRepository.findAllByActiveTrue()).thenReturn(expectedUsers);
+        when(telegramUserRepository.findByActive(true)).thenReturn(expectedUsers);
 
         //when
-        List<TelegramUser> users = telegramUserService.retrieveAllActiveUsers();
+        List<TelegramUser> users = telegramUserService.findByActive(true);
         
         //then
         assertEquals(expectedUsers, users);

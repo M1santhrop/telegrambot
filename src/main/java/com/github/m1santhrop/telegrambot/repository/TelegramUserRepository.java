@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TelegramUserRepository extends JpaRepository<TelegramUser, String> {
-
-    List<TelegramUser> findAllByActiveTrue();
+    List<TelegramUser> findByActive(Boolean active);
 }

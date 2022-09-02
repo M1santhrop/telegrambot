@@ -5,7 +5,6 @@ import static com.github.m1santhrop.telegrambot.command.CommandName.DELETE_GROUP
 import static com.github.m1santhrop.telegrambot.command.CommandName.HELP;
 import static com.github.m1santhrop.telegrambot.command.CommandName.LIST_GROUP_SUB;
 import static com.github.m1santhrop.telegrambot.command.CommandName.START;
-import static com.github.m1santhrop.telegrambot.command.CommandName.STAT;
 import static com.github.m1santhrop.telegrambot.command.CommandName.STOP;
 import static com.github.m1santhrop.telegrambot.command.CommandUtils.*;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageService;
@@ -19,16 +18,15 @@ public class HelpCommand implements Command {
 
     public static final String HELP_MESSAGE = String.format("✨<b>Дотупные команды</b>✨\n\n"
             + "<b>Начать\\закончить работу с ботом:</b>\n"
-            + "%s - начать работу со мной\n"
-            + "%s - приостановить работу со мной\n\n"
+            + "%s - начать работу с ботом\n"
+            + "%s - приостановить работу с ботом\n\n"
             + "<b>Работа с подписками на группу:</b>\n"
-            + "%s - добавить подписку на группу\n"
-            + "%s - отписаться от группы\n"
+            + "%s - подписаться на группу статей\n"
+            + "%s - отписаться от группы статей\n"
             + "%s - показать ваши текущие подписки\n\n"
-            + "%s - получить помощь в работе со мной\n"
-            + "%s - получить мою статистику использования\n",
+            + "%s - получить помощь в работе с ботом\n",
         START.getName(), STOP.getName(), ADD_GROUP_SUB.getName(), DELETE_GROUP_SUB.getName(),
-        LIST_GROUP_SUB.getName(), HELP.getName(), STAT.getName());
+        LIST_GROUP_SUB.getName(), HELP.getName());
 
     @Override
     public void execute(Update update) {
