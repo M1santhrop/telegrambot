@@ -5,7 +5,6 @@ import com.github.m1santhrop.telegrambot.command.annotation.AdminCommand;
 import com.github.m1santhrop.telegrambot.dto.StatisticDTO;
 import com.github.m1santhrop.telegrambot.service.SendBotMessageService;
 import com.github.m1santhrop.telegrambot.service.StatisticService;
-import com.github.m1santhrop.telegrambot.service.TelegramUserService;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -17,7 +16,7 @@ public class StatCommand implements Command {
     private final SendBotMessageService sendBotMessageService;
     private final StatisticService statisticService;
 
-    public final static String STAT_MESSAGE = "✨<b>Подготовил статистику</b>✨\n" +
+    public static final String STAT_MESSAGE = "✨<b>Подготовил статистику</b>✨\n" +
         "- Количество активных пользователей: %s\n" +
         "- Количество неактивных пользователей: %s\n" +
         "- Среднее количество групп на одного пользователя: %s\n\n" +
