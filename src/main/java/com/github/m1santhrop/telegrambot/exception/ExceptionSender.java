@@ -15,7 +15,7 @@ public class ExceptionSender {
     private ExceptionSender() {
     }
     
-    public static NotFoundException throwNotFoundUserException(String chatId) {
+    public static NotFoundException throwNotFoundUserException(Long chatId) {
         sendBotMessageService.sendMessage(chatId, NOT_FOUND_USER_MESSAGE);
         return new NotFoundException(
             String.format("There is no user with this chatId = %s in the database", chatId));

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github.m1santhrop</groupId>
 	<artifactId>telegrambot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>telegrambot</name>
 	<description>Telegram bot</description>
 	<properties>

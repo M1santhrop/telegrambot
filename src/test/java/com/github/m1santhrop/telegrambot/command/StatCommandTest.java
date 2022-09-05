@@ -54,7 +54,7 @@ class StatCommandTest {
         statCommand.execute(update);
 
         //then
-        verify(sendBotMessageService).sendMessage(chatId.toString(), expectedMessage);
+        verify(sendBotMessageService).sendMessage(chatId, expectedMessage);
     }
 
     private Update buildUpdate(Long chatId, String text) {

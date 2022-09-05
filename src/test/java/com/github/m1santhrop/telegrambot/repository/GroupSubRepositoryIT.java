@@ -39,7 +39,7 @@ class GroupSubRepositoryIT {
         List<TelegramUser> users = groupSub.getUsers();
         for (int i = 0; i < users.size(); i++) {
             TelegramUser user = users.get(i);
-            assertEquals(String.valueOf(i + 1), user.getChatId());
+            assertEquals(Long.valueOf(i + 1), user.getChatId());
             assertTrue(user.isActive());
         }
     }

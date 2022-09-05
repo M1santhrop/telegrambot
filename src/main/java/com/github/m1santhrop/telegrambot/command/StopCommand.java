@@ -16,7 +16,7 @@ public class StopCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        String chatId = getChatId(update);
+        Long chatId = getChatId(update);
         telegramUserService.findByChatId(chatId).ifPresent(telegramUser -> {
             telegramUser.setActive(false);
             telegramUserService.save(telegramUser);

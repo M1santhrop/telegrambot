@@ -31,13 +31,13 @@ class StatisticServiceTest {
     void shouldProperlySendStatDTO() {
         //given
         TelegramUser activeUser = new TelegramUser();
-        activeUser.setChatId("1");
+        activeUser.setChatId(1L);
         activeUser.setActive(true);
         List<TelegramUser> activeUsers = Collections.singletonList(activeUser);
         when(telegramUserService.findByActive(true)).thenReturn(activeUsers);
         
         TelegramUser inactiveUser = new TelegramUser();
-        inactiveUser.setChatId("2");
+        inactiveUser.setChatId(2L);
         inactiveUser.setActive(false);
         when(telegramUserService.findByActive(false)).thenReturn(Collections.singletonList(inactiveUser));
 

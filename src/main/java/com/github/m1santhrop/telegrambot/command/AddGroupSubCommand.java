@@ -36,7 +36,7 @@ public class AddGroupSubCommand implements Command {
     @Override
     public void execute(Update update) {
         String message = getMessage(update);
-        String chatId = getChatId(update);
+        Long chatId = getChatId(update);
         if (message.equalsIgnoreCase(ADD_GROUP_SUB.getName())) {
             sendGroupIdList(chatId);
             return;
@@ -55,7 +55,7 @@ public class AddGroupSubCommand implements Command {
         }
     }
 
-    private void sendGroupIdList(String chatId) {
+    private void sendGroupIdList(Long chatId) {
         String groupIds = javaRushGroupClient.getGroupList(GroupRequestArgs.builder().build()).stream()
             .sorted(Comparator.comparing(GroupInfo::getId))
             .map(groupInfo -> String.format("%s - %s %n", groupInfo.getId(), groupInfo.getTitle()))

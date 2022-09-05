@@ -12,7 +12,6 @@ import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 @DisplayName("Unit-level testing for CommandContainer")
 class CommandContainerTest {
@@ -34,7 +33,7 @@ class CommandContainerTest {
     @Test
     void shouldGetAllTheExistingCommands() {
         Arrays.stream(CommandName.values()).forEach(commandName -> {
-            Command command = commandContainer.retrieveCommand(commandName.getName(),
+            Command command = commandContainer.findCommand(commandName.getName(),
                 "dmitryTimofeevDev");
             assertNotEquals(UnknownCommand.class, command.getClass());
         });
@@ -44,7 +43,7 @@ class CommandContainerTest {
     void shouldReturnUnknownCommand() {
         String unknownCommand = "/unknown";
 
-        Command command = commandContainer.retrieveCommand(unknownCommand, "dmitryTimofeevDev");
+        Command command = commandContainer.findCommand(unknownCommand, "dmitryTimofeevDev");
 
         assertEquals(UnknownCommand.class, command.getClass());
     }

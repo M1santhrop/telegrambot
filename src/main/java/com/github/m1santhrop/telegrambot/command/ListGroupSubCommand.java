@@ -19,7 +19,7 @@ public class ListGroupSubCommand implements Command {
     
     @Override
     public void execute(Update update) {
-        String chatId = getChatId(update);
+        Long chatId = getChatId(update);
         TelegramUser telegramUser = telegramUserService.findByChatId(chatId)
             .orElseThrow(() -> ExceptionSender.throwNotFoundUserException(chatId));
 
