@@ -94,7 +94,7 @@
           <programs>
             <program>
               <mainClass>com.github.m1santhrop.telegrambot.TelegrambotApplication</mainClass>
-              <name>javarushtelegrambot</name>
+              <name>telegrambot</name>
             </program>
           </programs>
         </configuration>
