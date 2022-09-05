@@ -37,7 +37,7 @@ public class CommandContainer {
         this.admins = admins;
     }
 
-    public Command retrieveCommand(String commandName, String username) {
+    public Command findCommand(String commandName, String username) {
         Command command = commandMap.getOrDefault(commandName, unknownCommand);
         if (isAdminCommand(command)) {
             if (admins.contains(username)) {

@@ -43,7 +43,7 @@ class DeleteGroupSubCommandTest {
     @Test
     void shouldProperlyReturnEmptySubscriptionList() {
         //given
-        String chatId = "1";
+        Long chatId = 1L;
         Update update = buildUpdate(chatId, DELETE_GROUP_SUB.getName());
 
         TelegramUser telegramUser = new TelegramUser();
@@ -60,7 +60,7 @@ class DeleteGroupSubCommandTest {
     @Test
     void shouldProperlyReturnSubscriptionList() {
         //given
-        String chatId = "1";
+        Long chatId = 1L;
         Update update = buildUpdate(chatId, DELETE_GROUP_SUB.getName());
 
         TelegramUser telegramUser = new TelegramUser();
@@ -81,7 +81,7 @@ class DeleteGroupSubCommandTest {
     @Test
     void shouldRejectByInvalidGroupId() {
         //given
-        String chatId = "1";
+        Long chatId = 1L;
         String groupId = "abc";
         Update update = buildUpdate(chatId,
             String.format("%s %s", DELETE_GROUP_SUB.getName(), groupId));
@@ -104,7 +104,7 @@ class DeleteGroupSubCommandTest {
     @Test
     void shouldProperlyDeleteByGroupId() {
         //given
-        String chatId = "1";
+        Long chatId = 1L;
         Integer groupId = 1;
         Update update = buildUpdate(chatId, String.format("%s %s", DELETE_GROUP_SUB, groupId));
         
@@ -136,7 +136,7 @@ class DeleteGroupSubCommandTest {
     @Test
     void shouldDoesNotExistByGroupId() {
         //given
-        String chatId = "1";
+        Long chatId = 1L;
         Integer groupId = 2;
         Update update = buildUpdate(chatId,
             String.format("%s %s", DELETE_GROUP_SUB.getName(), groupId));
@@ -152,10 +152,10 @@ class DeleteGroupSubCommandTest {
         verify(sendBotMessageService).sendMessage(chatId, expectedMessage);
     }
 
-    private Update buildUpdate(String chatId, String text) {
+    private Update buildUpdate(Long chatId, String text) {
         Update update = new Update();
         Chat chat = new Chat();
-        chat.setId(parseLong(chatId));
+        chat.setId(chatId);
         Message message = new Message();
         message.setChat(chat);
         message.setText(text);

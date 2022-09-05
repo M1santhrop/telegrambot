@@ -31,7 +31,7 @@ class TelegramUserServiceTest {
     void shouldProperlySaveUser() {
         //given
         TelegramUser telegramUser = new TelegramUser();
-        telegramUser.setChatId("1");
+        telegramUser.setChatId(1L);
         telegramUser.setActive(true);
 
         //when
@@ -42,11 +42,11 @@ class TelegramUserServiceTest {
     }
 
     @Test
-    void shouldProperlyRetrieveAllActiveUsers() {
+    void shouldProperlyFindAllActiveUsers() {
         //given
         List<TelegramUser> expectedUsers = new ArrayList<>();
         TelegramUser telegramUser1 = new TelegramUser();
-        telegramUser1.setChatId("1");
+        telegramUser1.setChatId(1L);
         telegramUser1.setActive(true);
         expectedUsers.add(telegramUser1);
         
@@ -62,7 +62,7 @@ class TelegramUserServiceTest {
     @Test
     void shouldProperlyFindByChatId() {
         //given
-        String chatId = "1";
+        Long chatId = 1L;
         TelegramUser expectedTelegramUser = new TelegramUser();
         expectedTelegramUser.setChatId(chatId);
         expectedTelegramUser.setActive(true);

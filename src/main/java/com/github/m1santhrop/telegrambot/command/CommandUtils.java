@@ -15,11 +15,11 @@ public class CommandUtils {
         return update.getMessage().getText();
     }
     
-    public static String getChatId(Update update) {
-        return update.getMessage().getChatId().toString();
+    public static Long getChatId(Update update) {
+        return update.getMessage().getChatId();
     }
 
-    public static void sendGroupNotFound(SendBotMessageService sendBotMessageService, String chatId, String groupId) {
+    public static void sendGroupNotFound(SendBotMessageService sendBotMessageService, Long chatId, String groupId) {
         sendBotMessageService.sendMessage(chatId, String.format(GROUP_NOT_FOUND_MESSAGE, groupId));
     }
 }

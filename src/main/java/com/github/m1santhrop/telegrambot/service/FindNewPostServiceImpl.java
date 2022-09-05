@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FindNewArticleServiceImpl implements FindNewArticleService {
+public class FindNewPostServiceImpl implements FindNewPostService {
 
     private static final String JAVARUSH_WEB_POST_FORMAT = "https://javarush.ru/groups/posts/%s";
-    private static final String NEW_ARTICLE_MESSAGE =
+    private static final String NEW_POST_MESSAGE =
         "✨Вышла новая статья <b>%s</b> в группе <b>%s</b>.✨\n\n" +
             "<b>Описание:</b> %s\n\n" +
             "<b>Ссылка:</b> %s\n";
@@ -24,7 +24,7 @@ public class FindNewArticleServiceImpl implements FindNewArticleService {
     private final SendBotMessageService sendBotMessageService;
 
     @Autowired
-    public FindNewArticleServiceImpl(
+    public FindNewPostServiceImpl(
         GroupSubService groupSubService,
         JavaRushPostClient javaRushPostClient,
         SendBotMessageService sendBotMessageService) {
@@ -34,39 +34,39 @@ public class FindNewArticleServiceImpl implements FindNewArticleService {
     }
 
     @Override
-    public void findNewArticles() {
+    public void findNewPosts() {
         groupSubService.findAll().forEach(groupSub -> {
             List<PostInfo> newPosts = javaRushPostClient.findNewPosts(groupSub.getId(),
-                groupSub.getLastArticleId());
+                groupSub.getLastPostId());
 
-            setNewArticleId(groupSub, newPosts);
+            setNewPostId(groupSub, newPosts);
 
-            notifySubscribersAboutNewArticles(groupSub, newPosts);
+            notifySubscribersAboutNewPosts(groupSub, newPosts);
         });
     }
 
-    private void setNewArticleId(GroupSub groupSub, List<PostInfo> newPosts) {
+    private void setNewPostId(GroupSub groupSub, List<PostInfo> newPosts) {
         newPosts.stream()
             .mapToInt(PostInfo::getId)
             .max()
             .ifPresent(maxPostId -> {
-                groupSub.setLastArticleId(maxPostId);
+                groupSub.setLastPostId(maxPostId);
                 groupSubService.save(groupSub);
             });
     }
 
-    private void notifySubscribersAboutNewArticles(GroupSub groupSub, List<PostInfo> newPosts) {
+    private void notifySubscribersAboutNewPosts(GroupSub groupSub, List<PostInfo> newPosts) {
         Collections.reverse(newPosts);
 
-        List<String> messagesWithNewArticles = newPosts.stream()
-            .map(postInfo -> String.format(NEW_ARTICLE_MESSAGE, postInfo.getTitle(),
+        List<String> messagesWithNewPosts = newPosts.stream()
+            .map(postInfo -> String.format(NEW_POST_MESSAGE, postInfo.getTitle(),
                 groupSub.getTitle(), postInfo.getDescription(), getPostUrl(postInfo.getKey())))
             .collect(Collectors.toList());
 
         groupSub.getUsers().stream()
             .filter(TelegramUser::isActive)
             .forEach(telegramUser -> sendBotMessageService.sendMessage(telegramUser.getChatId(),
-                messagesWithNewArticles));
+                messagesWithNewPosts));
     }
 
     private String getPostUrl(String key) {

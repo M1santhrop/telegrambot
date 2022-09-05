@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface TelegramUserService {
     void save(TelegramUser telegramUser);
     List<TelegramUser> findByActive(Boolean active);
-    Optional<TelegramUser> findByChatId(String chatId);
+    Optional<TelegramUser> findByChatId(Long chatId);
 }

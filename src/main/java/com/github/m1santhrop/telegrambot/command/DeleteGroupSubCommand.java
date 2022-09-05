@@ -38,7 +38,7 @@ public class DeleteGroupSubCommand implements Command {
     @Override
     public void execute(Update update) {
         String message = getMessage(update);
-        String chatId = getChatId(update);
+        Long chatId = getChatId(update);
         if (message.equalsIgnoreCase(DELETE_GROUP_SUB.getName())) {
             sendGroupIdList(chatId);
             return;
@@ -61,7 +61,7 @@ public class DeleteGroupSubCommand implements Command {
         }
     }
 
-    private void sendGroupIdList(String chatId) {
+    private void sendGroupIdList(Long chatId) {
         List<GroupSub> groupSubs = telegramUserService.findByChatId(chatId)
             .orElseThrow(() -> ExceptionSender.throwNotFoundUserException(chatId)).getGroupSubs();
         if (groupSubs.isEmpty()) {

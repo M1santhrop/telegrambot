@@ -24,7 +24,7 @@ class SendBotMessageServiceImplTest {
     @Test
     void shouldProperlySendMessage() throws TelegramApiException {
         //given
-        String chatId = "test_chat_id";
+        Long chatId = 1L;
         String message = "test_message";
 
         SendMessage sendMessage = new SendMessage();

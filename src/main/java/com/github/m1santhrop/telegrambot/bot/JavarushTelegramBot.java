@@ -61,12 +61,12 @@ public class JavarushTelegramBot extends TelegramLongPollingBot {
             String text = update.getMessage().getText().trim();
             if (text.startsWith(COMMAND_PREFIX)) {
                 String commandName = text.split("\\s")[0].toLowerCase();
-                commandContainer.retrieveCommand(commandName, userName).execute(update);
+                commandContainer.findCommand(commandName, userName).execute(update);
             } else {
-                commandContainer.retrieveCommand("noCommand", userName).execute(update);
+                commandContainer.findCommand("noCommand", userName).execute(update);
             }
         } else {
-            commandContainer.retrieveCommand("noText", userName).execute(update);
+            commandContainer.findCommand("noText", userName).execute(update);
         }
     }
 
